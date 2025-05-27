@@ -398,11 +398,11 @@
             z-index: 200;
             display: none;
         }
-
+/*
         .model-instructions.show {
             display: block;
         }
-
+*/
         .model-instructions h3 {
             color: #ff0080;
             margin-bottom: 10px;
@@ -734,29 +734,30 @@ if (nameText) { // Ensure nameText is defined before trying to add glow
             // Cyberpunk project displays
             const projects = [
                 { 
-                    name: 'Neural Network Viz', 
+                    name: 'LLMs for Anomaly Detection using CWGAN-GP', 
                     position: new THREE.Vector3(8, 0, 0), 
                     color: 0xff0080,
-                    description: 'Interactive visualization of neural network training using WebGL'
+                    description: 'Anomaly detection framework leveraging Large Language Models (LLMs) and Conditional Wasserstein GANs with Gradient Penalty (CWGAN-GP) to identify malicious network traffic'
                 },
                 { 
-                    name: 'Crypto Dashboard', 
+                    name: 'Ultrasound Images Classification', 
                     position: new THREE.Vector3(-8, 0, 0), 
                     color: 0x00ffff,
-                    description: 'Real-time cryptocurrency tracking with 3D data visualization'
+                    description: 'deep learning classifier using PyTorch to analyze breast ultrasound images, achieving 85% accuracy in distinguishing between normal, benign, and malignant tissues with 89% sensitivity for cancer detection.'
                 },
                 { 
-                    name: 'AR Shopping', 
+                    name: 'Disease Prediction Using Machine Learning - Heart Disease Focus', 
                     position: new THREE.Vector3(0, 0, 8), 
                     color: 0xff00ff,
-                    description: 'Augmented reality e-commerce platform with 3D product preview'
-                },
-                { 
-                    name: 'AI Chat Bot', 
-                    position: new THREE.Vector3(0, 0, -8), 
-                    color: 0x00ff00,
-                    description: 'Advanced conversational AI with personality simulation'
+                    description: 'Application of a machine learning model to forecast cardiovascular diseases, tackling one of the worlds primary causes of morbidity and death'
                 }
+                // ,
+                // { 
+                //     name: 'AI Chat Bot', 
+                //     position: new THREE.Vector3(0, 0, -8), 
+                //     color: 0x00ff00,
+                //     description: 'Advanced conversational AI with personality simulation'
+                // }
             ];
 
             projects.forEach((project, index) => {
