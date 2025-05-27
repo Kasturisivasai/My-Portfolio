@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sri Siva Sai Kameswara Rao Kasturi</title>
+    <title>Sri Siva Sai Kameswara Rao Kasturi - Portfolio</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
         * {
             margin: 0;
             padding: 0;
@@ -12,35 +14,77 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Orbitron', monospace;
             overflow-x: hidden;
             background: #000;
             color: #fff;
             cursor: none;
         }
 
-        /* Custom Cursor */
+        /* Cyberpunk Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255, 0, 255, 0.03) 2px,
+                    rgba(255, 0, 255, 0.03) 4px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 255, 255, 0.03) 2px,
+                    rgba(0, 255, 255, 0.03) 4px
+                );
+            z-index: 0;
+        }
+
+        /* Glitch Effect */
+        @keyframes glitch {
+            0%, 100% { text-shadow: 2px 0 #ff0080, -2px 0 #00ffff; }
+            25% { text-shadow: -2px 0 #ff0080, 2px 0 #00ffff; }
+            50% { text-shadow: 2px 0 #00ffff, -2px 0 #ff0080; }
+            75% { text-shadow: -2px 0 #00ffff, 2px 0 #ff0080; }
+        }
+
+        /* Neon Cursor */
         .cursor {
             width: 20px;
             height: 20px;
-            border: 2px solid #fff;
+            border: 2px solid #00ffff;
             border-radius: 50%;
             position: fixed;
             pointer-events: none;
-            transition: transform 0.1s;
             z-index: 10000;
-            mix-blend-mode: difference;
+            mix-blend-mode: screen;
+            box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff;
+            animation: cursorPulse 2s infinite;
+        }
+
+        @keyframes cursorPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
         }
 
         .cursor-follower {
             width: 40px;
             height: 40px;
-            background: rgba(255, 255, 255, 0.1);
+            background: transparent;
+            border: 1px solid #ff0080;
             border-radius: 50%;
             position: fixed;
             pointer-events: none;
             transition: transform 0.3s;
             z-index: 9999;
+            box-shadow: 0 0 10px #ff0080;
         }
 
         /* Canvas Container */
@@ -69,9 +113,11 @@
         }
 
         .loader-text {
-            font-size: 2rem;
-            letter-spacing: 0.2em;
-            animation: pulse 2s infinite;
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            animation: glitch 0.5s infinite, pulse 2s infinite;
+            color: #00ffff;
         }
 
         @keyframes pulse {
@@ -90,7 +136,7 @@
             z-index: 100;
         }
 
-        /* Navigation */
+        /* Navigation - Cyberpunk Style */
         nav {
             position: fixed;
             top: 20px;
@@ -101,110 +147,183 @@
 
         .nav-button {
             display: block;
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #00ffff;
             margin-bottom: 10px;
             cursor: pointer;
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
+            clip-path: polygon(0 0, 85% 0, 100% 15%, 100% 100%, 15% 100%, 0 85%);
         }
 
         .nav-button:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(0, 255, 255, 0.2);
             transform: scale(1.1);
+            box-shadow: 0 0 30px #00ffff;
         }
 
         .nav-button::before {
             content: attr(data-text);
             position: absolute;
-            right: 60px;
+            right: 70px;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.8);
+            background: #000;
+            border: 1px solid #00ffff;
             padding: 5px 15px;
-            border-radius: 20px;
             white-space: nowrap;
             opacity: 0;
             transition: opacity 0.3s;
             pointer-events: none;
+            font-size: 0.8rem;
+            text-transform: uppercase;
         }
 
         .nav-button:hover::before {
             opacity: 1;
         }
 
-        /* Project Info Panel */
+        .nav-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+        }
+
+        /* HUD Elements */
+        .hud {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 200;
+            pointer-events: none;
+        }
+
+        .hud-element {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #00ffff;
+            padding: 10px 20px;
+            margin-bottom: 10px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hud-element::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, #00ffff, transparent);
+            animation: scan 3s infinite;
+        }
+
+        @keyframes scan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Project Info Panel - Cyberpunk */
         .project-info {
             position: fixed;
             bottom: 20px;
             left: 20px;
             max-width: 400px;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.9);
             padding: 30px;
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
+            border: 2px solid #ff0080;
             transform: translateY(150%);
             transition: transform 0.5s;
             z-index: 200;
+            clip-path: polygon(0 0, 95% 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
         }
 
         .project-info.active {
             transform: translateY(0);
+            box-shadow: 0 0 50px #ff0080;
         }
 
         .project-info h2 {
             margin-bottom: 15px;
-            color: #00d4ff;
+            color: #ff0080;
+            text-transform: uppercase;
+            animation: glitch 2s infinite;
         }
 
         .project-info p {
             margin-bottom: 20px;
             line-height: 1.6;
+            color: #00ffff;
         }
 
         .project-info button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(45deg, #ff0080, #00ffff);
             border: none;
             padding: 10px 20px;
-            border-radius: 25px;
-            color: white;
+            color: #000;
+            font-weight: bold;
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            font-family: 'Orbitron', monospace;
         }
 
         .project-info button:hover {
             transform: scale(1.05);
+            box-shadow: 0 0 20px #ff0080;
         }
 
-        /* Instructions */
-        .instructions {
+        /* Game UI */
+        .game-ui {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-            z-index: 200;
-            max-width: 300px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #00ffff;
+            padding: 30px;
+            text-align: center;
+            display: none;
+            z-index: 300;
         }
 
-        .instructions h3 {
-            margin-bottom: 10px;
-            color: #00d4ff;
+        .game-ui.active {
+            display: block;
         }
 
-        .instructions p {
-            font-size: 0.9rem;
-            line-height: 1.5;
-            margin-bottom: 5px;
+        .game-score {
+            font-size: 2rem;
+            color: #00ffff;
+            margin-bottom: 20px;
+            text-transform: uppercase;
         }
 
-        /* Welcome Screen */
+        .game-button {
+            background: #ff0080;
+            border: none;
+            padding: 15px 30px;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .game-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px #ff0080;
+        }
+
+        /* Welcome Screen - Cyberpunk */
         .welcome {
             position: fixed;
             top: 50%;
@@ -217,54 +336,123 @@
 
         .welcome h1 {
             font-size: 5rem;
+            font-weight: 900;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            text-transform: uppercase;
+            background: linear-gradient(45deg, #ff0080, #00ffff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: float 4s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            animation: glitch 1s infinite;
         }
 
         .welcome p {
             font-size: 1.5rem;
             margin-bottom: 30px;
-            opacity: 0.8;
+            color: #00ffff;
+            text-transform: uppercase;
         }
 
         .enter-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
+            background: transparent;
+            border: 2px solid #00ffff;
             padding: 15px 40px;
-            border-radius: 30px;
-            color: white;
+            color: #00ffff;
             font-size: 1.2rem;
             cursor: pointer;
             transition: all 0.3s;
+            text-transform: uppercase;
+            font-family: 'Orbitron', monospace;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .enter-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: #00ffff;
+            transition: left 0.3s;
+            z-index: -1;
         }
 
         .enter-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+            color: #000;
+        }
+
+        .enter-button:hover::before {
+            left: 0;
+        }
+
+        /* Model Upload Instructions */
+        .model-instructions {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid #ff0080;
+            padding: 20px;
+            max-width: 300px;
+            z-index: 200;
+            display: none;
+        }
+
+        .model-instructions.show {
+            display: block;
+        }
+
+        .model-instructions h3 {
+            color: #ff0080;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .model-instructions code {
+            background: rgba(255, 0, 128, 0.2);
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 0.9rem;
         }
 
         .hidden {
             opacity: 0;
             pointer-events: none;
         }
+
+        /* Scanlines Effect */
+        .scanlines::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                transparent 50%,
+                rgba(0, 255, 255, 0.03) 50%
+            );
+            background-size: 100% 4px;
+            z-index: 1;
+            pointer-events: none;
+            animation: scanlines 8s linear infinite;
+        }
+
+        @keyframes scanlines {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(10px); }
+        }
     </style>
 </head>
-<body>
-    <!-- Custom Cursor -->
+<body class="scanlines">
+    <!-- Neon Cursor -->
     <div class="cursor"></div>
     <div class="cursor-follower"></div>
 
     <!-- Loading Screen -->
     <div class="loader">
-        <div class="loader-text">LOADING...</div>
+        <div class="loader-text">INITIALIZING...</div>
     </div>
 
     <!-- Canvas Container -->
@@ -272,19 +460,37 @@
 
     <!-- UI Overlay -->
     <div class="ui-overlay">
+        <!-- HUD Elements -->
+        <div class="hud">
+            <div class="hud-element">FPS: <span id="fps">60</span></div>
+            <div class="hud-element">Objects: <span id="objectCount">0</span></div>
+            <div class="hud-element">Score: <span id="hudScore">0</span></div>
+        </div>
+
         <!-- Navigation -->
         <nav>
-            <div class="nav-button" data-text="Home" onclick="navigateTo('home')">🏠</div>
-            <div class="nav-button" data-text="About" onclick="navigateTo('about')">👤</div>
-            <div class="nav-button" data-text="Projects" onclick="navigateTo('projects')">💼</div>
-            <div class="nav-button" data-text="Contact" onclick="navigateTo('contact')">✉️</div>
+            <div class="nav-button" data-text="Home" onclick="navigateTo('home')">
+                <span class="nav-icon">🏠</span>
+            </div>
+            <div class="nav-button" data-text="About" onclick="navigateTo('about')">
+                <span class="nav-icon">👤</span>
+            </div>
+            <div class="nav-button" data-text="Projects" onclick="navigateTo('projects')">
+                <span class="nav-icon">💼</span>
+            </div>
+            <div class="nav-button" data-text="Game" onclick="startGame()">
+                <span class="nav-icon">🎮</span>
+            </div>
+            <div class="nav-button" data-text="Contact" onclick="navigateTo('contact')">
+                <span class="nav-icon">✉️</span>
+            </div>
         </nav>
 
         <!-- Welcome Screen -->
         <div class="welcome">
             <h1>Your Name</h1>
-            <p>Welcome to my 3D Portfolio</p>
-            <button class="enter-button" onclick="enterPortfolio()">Enter Experience</button>
+            <p>Cyberpunk Portfolio</p>
+            <button class="enter-button" onclick="enterPortfolio()">Access System</button>
         </div>
 
         <!-- Project Info Panel -->
@@ -294,13 +500,21 @@
             <button onclick="closeProjectInfo()">Close</button>
         </div>
 
-        <!-- Instructions -->
-        <div class="instructions hidden" id="instructions">
-            <h3>Navigation</h3>
-            <p>🖱️ Move mouse to look around</p>
-            <p>🖱️ Click and drag to rotate view</p>
-            <p>📜 Scroll to zoom in/out</p>
-            <p>🎯 Click on objects to interact</p>
+        <!-- Game UI -->
+        <div class="game-ui" id="gameUI">
+            <div class="game-score">Score: <span id="gameScore">0</span></div>
+            <button class="game-button" onclick="exitGame()">Exit Game</button>
+        </div>
+
+        <!-- Model Instructions -->
+        <div class="model-instructions" id="modelInstructions">
+            <h3>3D Model Integration</h3>
+            <p>To add Blender models:</p>
+            <ol>
+                <li>Export as <code>.glb</code> or <code>.gltf</code></li>
+                <li>Place in <code>models/</code> folder</li>
+                <li>Use the loader code in the script</li>
+            </ol>
         </div>
     </div>
 
@@ -312,6 +526,13 @@
         let objects = [];
         let currentSection = 'home';
         let isLoaded = false;
+        let clock = new THREE.Clock();
+        let nameText;
+        
+        // Game variables
+        let gameActive = false;
+        let gameScore = 0;
+        let gameTargets = [];
 
         // Custom cursor
         const cursor = document.querySelector('.cursor');
@@ -329,9 +550,9 @@
 
         // Initialize Three.js
         function init() {
-            // Scene
+            // Scene with fog for depth
             scene = new THREE.Scene();
-            scene.fog = new THREE.Fog(0x000000, 1, 50);
+            scene.fog = new THREE.FogExp2(0x000000, 0.02);
 
             // Camera
             camera = new THREE.PerspectiveCamera(
@@ -340,41 +561,57 @@
                 0.1,
                 1000
             );
-            camera.position.set(0, 0, 5);
+            camera.position.set(0, 0, 10);
 
-            // Renderer
+            // Renderer with post-processing feel
             renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
             document.getElementById('canvas-container').appendChild(renderer.domElement);
 
             // Raycaster for mouse interactions
             raycaster = new THREE.Raycaster();
             mouse = new THREE.Vector2();
 
-            // Lights
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            // Cyberpunk Lighting
+            const ambientLight = new THREE.AmbientLight(0x0a0a0a);
             scene.add(ambientLight);
 
-            const pointLight = new THREE.PointLight(0x667eea, 1, 100);
-            pointLight.position.set(10, 10, 10);
-            scene.add(pointLight);
+            // Neon lights
+            const pinkLight = new THREE.PointLight(0xff0080, 2, 50);
+            pinkLight.position.set(10, 10, 10);
+            scene.add(pinkLight);
 
-            const pointLight2 = new THREE.PointLight(0x764ba2, 1, 100);
-            pointLight2.position.set(-10, -10, -10);
-            scene.add(pointLight2);
+            const cyanLight = new THREE.PointLight(0x00ffff, 2, 50);
+            cyanLight.position.set(-10, -10, 10);
+            scene.add(cyanLight);
 
-            // Create 3D objects
-            createObjects();
+            // Moving spotlights
+            const spotLight1 = new THREE.SpotLight(0xff0080, 1);
+            spotLight1.position.set(20, 20, 20);
+            spotLight1.castShadow = true;
+            scene.add(spotLight1);
 
-            // Mouse movement
+            const spotLight2 = new THREE.SpotLight(0x00ffff, 1);
+            spotLight2.position.set(-20, 20, 20);
+            spotLight2.castShadow = true;
+            scene.add(spotLight2);
+
+            // Create all 3D objects
+            createCyberpunkScene();
+            create3DText();
+            
+            // Show model instructions
+            setTimeout(() => {
+                document.getElementById('modelInstructions').classList.add('show');
+            }, 5000);
+
+            // Event listeners
             document.addEventListener('mousemove', onMouseMove);
             document.addEventListener('click', onMouseClick);
-
-            // Scroll
             document.addEventListener('wheel', onMouseWheel);
-
-            // Resize
             window.addEventListener('resize', onWindowResize);
 
             // Start animation
@@ -390,106 +627,254 @@
             }, 2000);
         }
 
-        // Create 3D objects
-        function createObjects() {
-            // Floating particles
-            const particlesGeometry = new THREE.BufferGeometry();
-            const particlesCount = 1000;
-            const posArray = new Float32Array(particlesCount * 3);
+        // Create 3D Text with your name
+        function create3DText() {
+            // IMPORTANT: This is where you change your name!
+            const yourName = "Sri Siva Sai Kameswara Rao Kasturi"
+            const loader = new THREE.FontLoader();
+            
+            // Create 3D text using shapes (since FontLoader needs external files)
+            const textGeometry = new THREE.BoxGeometry(8, 1, 0.5);
+            const textMaterial = new THREE.MeshPhongMaterial({
+                color: 0xff0080,
+                emissive: 0xff0080,
+                emissiveIntensity: 0.5,
+                wireframe: true
+            });
+            
+            nameText = new THREE.Mesh(textGeometry, textMaterial);
+            nameText.position.set(0, 5, -5);
+            scene.add(nameText);
+            
+            // Add glow effect
+            const glowGeometry = new THREE.BoxGeometry(8.5, 1.5, 0.6);
+            const glowMaterial = new THREE.MeshBasicMaterial({
+                color: 0xff0080,
+                transparent: true,
+                opacity: 0.3
+            });
+            const glow = new THREE.Mesh(glowGeometry, glowMaterial);
+            nameText.add(glow);
+        }
 
-            for (let i = 0; i < particlesCount * 3; i++) {
-                posArray[i] = (Math.random() - 0.5) * 50;
+        // Create Cyberpunk Scene
+        function createCyberpunkScene() {
+            // Grid floor
+            const gridHelper = new THREE.GridHelper(100, 50, 0xff0080, 0x00ffff);
+            gridHelper.position.y = -5;
+            scene.add(gridHelper);
+
+            // Floating neon particles
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCount = 2000;
+            const posArray = new Float32Array(particlesCount * 3);
+            const colorArray = new Float32Array(particlesCount * 3);
+
+            for (let i = 0; i < particlesCount * 3; i += 3) {
+                posArray[i] = (Math.random() - 0.5) * 100;
+                posArray[i + 1] = (Math.random() - 0.5) * 100;
+                posArray[i + 2] = (Math.random() - 0.5) * 100;
+                
+                // Alternate between pink and cyan
+                if (Math.random() > 0.5) {
+                    colorArray[i] = 1;
+                    colorArray[i + 1] = 0;
+                    colorArray[i + 2] = 0.5;
+                } else {
+                    colorArray[i] = 0;
+                    colorArray[i + 1] = 1;
+                    colorArray[i + 2] = 1;
+                }
             }
 
             particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
             
             const particlesMaterial = new THREE.PointsMaterial({
-                size: 0.05,
-                color: 0xffffff,
+                size: 0.1,
+                vertexColors: true,
                 transparent: true,
-                opacity: 0.8
+                opacity: 0.8,
+                blending: THREE.AdditiveBlending
             });
 
             const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
             scene.add(particlesMesh);
             objects.push({ mesh: particlesMesh, type: 'particles' });
 
-            // Central rotating cube
-            const cubeGeometry = new THREE.BoxGeometry(2, 2, 2);
+            // Holographic cube in center
+            const cubeGeometry = new THREE.BoxGeometry(3, 3, 3);
             const cubeMaterial = new THREE.MeshPhongMaterial({
-                color: 0x667eea,
+                color: 0x00ffff,
+                emissive: 0x00ffff,
+                emissiveIntensity: 0.2,
                 wireframe: true,
                 transparent: true,
                 opacity: 0.8
             });
             const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
             cube.position.set(0, 0, 0);
+            cube.castShadow = true;
             scene.add(cube);
             objects.push({ mesh: cube, type: 'centerpiece' });
 
-            // Project spheres
+            // Cyberpunk project displays
             const projects = [
-                { name: 'Project 1', position: new THREE.Vector3(5, 0, 0), color: 0xff6b6b },
-                { name: 'Project 2', position: new THREE.Vector3(-5, 0, 0), color: 0x4ecdc4 },
-                { name: 'Project 3', position: new THREE.Vector3(0, 5, 0), color: 0xffe66d },
-                { name: 'Project 4', position: new THREE.Vector3(0, -5, 0), color: 0xa8e6cf }
+                { 
+                    name: 'Neural Network Viz', 
+                    position: new THREE.Vector3(8, 0, 0), 
+                    color: 0xff0080,
+                    description: 'Interactive visualization of neural network training using WebGL'
+                },
+                { 
+                    name: 'Crypto Dashboard', 
+                    position: new THREE.Vector3(-8, 0, 0), 
+                    color: 0x00ffff,
+                    description: 'Real-time cryptocurrency tracking with 3D data visualization'
+                },
+                { 
+                    name: 'AR Shopping', 
+                    position: new THREE.Vector3(0, 0, 8), 
+                    color: 0xff00ff,
+                    description: 'Augmented reality e-commerce platform with 3D product preview'
+                },
+                { 
+                    name: 'AI Chat Bot', 
+                    position: new THREE.Vector3(0, 0, -8), 
+                    color: 0x00ff00,
+                    description: 'Advanced conversational AI with personality simulation'
+                }
             ];
 
             projects.forEach((project, index) => {
-                const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
-                const sphereMaterial = new THREE.MeshPhongMaterial({
+                // Create holographic display
+                const displayGeometry = new THREE.OctahedronGeometry(1.5, 0);
+                const displayMaterial = new THREE.MeshPhongMaterial({
                     color: project.color,
                     emissive: project.color,
-                    emissiveIntensity: 0.2
+                    emissiveIntensity: 0.5,
+                    flatShading: true,
+                    transparent: true,
+                    opacity: 0.8
                 });
-                const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-                sphere.position.copy(project.position);
-                sphere.userData = {
+                const display = new THREE.Mesh(displayGeometry, displayMaterial);
+                display.position.copy(project.position);
+                display.userData = {
                     type: 'project',
                     name: project.name,
-                    description: `This is a description for ${project.name}. Click to learn more about this amazing project!`
+                    description: project.description
                 };
-                scene.add(sphere);
-                objects.push({ mesh: sphere, type: 'project', data: sphere.userData });
+                display.castShadow = true;
+                scene.add(display);
+                objects.push({ mesh: display, type: 'project', data: display.userData });
+
+                // Add rotating ring around project
+                const ringGeometry = new THREE.TorusGeometry(2, 0.1, 16, 100);
+                const ringMaterial = new THREE.MeshBasicMaterial({
+                    color: project.color,
+                    transparent: true,
+                    opacity: 0.5
+                });
+                const ring = new THREE.Mesh(ringGeometry, ringMaterial);
+                ring.position.copy(project.position);
+                scene.add(ring);
+                objects.push({ mesh: ring, type: 'projectRing' });
             });
 
-            // Torus knot
-            const torusGeometry = new THREE.TorusKnotGeometry(1, 0.3, 100, 16);
-            const torusMaterial = new THREE.MeshPhongMaterial({
-                color: 0x764ba2,
-                wireframe: true
-            });
-            const torus = new THREE.Mesh(torusGeometry, torusMaterial);
-            torus.position.set(8, 3, -5);
-            scene.add(torus);
-            objects.push({ mesh: torus, type: 'decoration' });
+            // Floating holographic displays
+            for (let i = 0; i < 5; i++) {
+                const screenGeometry = new THREE.PlaneGeometry(2, 1.5);
+                const screenMaterial = new THREE.MeshBasicMaterial({
+                    color: 0x00ffff,
+                    transparent: true,
+                    opacity: 0.3,
+                    side: THREE.DoubleSide,
+                    wireframe: true
+                });
+                const screen = new THREE.Mesh(screenGeometry, screenMaterial);
+                screen.position.set(
+                    (Math.random() - 0.5) * 20,
+                    Math.random() * 10,
+                    (Math.random() - 0.5) * 20
+                );
+                scene.add(screen);
+                objects.push({ mesh: screen, type: 'screen' });
+            }
 
-            // Icosahedron
-            const icoGeometry = new THREE.IcosahedronGeometry(1, 0);
-            const icoMaterial = new THREE.MeshPhongMaterial({
-                color: 0x00d4ff,
-                flatShading: true
-            });
-            const ico = new THREE.Mesh(icoGeometry, icoMaterial);
-            ico.position.set(-8, -3, -5);
-            scene.add(ico);
-            objects.push({ mesh: ico, type: 'decoration' });
+            // Update HUD
+            document.getElementById('objectCount').textContent = objects.length;
         }
 
-        // Mouse move handler
+        // Mini-game functionality
+        function startGame() {
+            gameActive = true;
+            gameScore = 0;
+            document.getElementById('gameUI').classList.add('active');
+            document.getElementById('gameScore').textContent = gameScore;
+            
+            // Hide other UI elements
+            document.querySelector('.project-info').classList.remove('active');
+            
+            // Create game targets
+            createGameTargets();
+            
+            // Move camera to game position
+            camera.position.set(0, 0, 15);
+        }
+
+        function createGameTargets() {
+            // Clear existing targets
+            gameTargets.forEach(target => scene.remove(target));
+            gameTargets = [];
+            
+            // Create new targets
+            for (let i = 0; i < 10; i++) {
+                const targetGeometry = new THREE.SphereGeometry(0.5, 16, 16);
+                const targetMaterial = new THREE.MeshPhongMaterial({
+                    color: Math.random() > 0.5 ? 0xff0080 : 0x00ffff,
+                    emissive: Math.random() > 0.5 ? 0xff0080 : 0x00ffff,
+                    emissiveIntensity: 0.5
+                });
+                const target = new THREE.Mesh(targetGeometry, targetMaterial);
+                target.position.set(
+                    (Math.random() - 0.5) * 20,
+                    (Math.random() - 0.5) * 10,
+                    (Math.random() - 0.5) * 10
+                );
+                target.userData = { type: 'gameTarget', points: Math.floor(Math.random() * 50) + 10 };
+                scene.add(target);
+                gameTargets.push(target);
+            }
+        }
+
+        function exitGame() {
+            gameActive = false;
+            document.getElementById('gameUI').classList.remove('active');
+            
+            // Remove game targets
+            gameTargets.forEach(target => scene.remove(target));
+            gameTargets = [];
+            
+            // Reset camera
+            camera.position.set(0, 0, 10);
+            
+            // Update high score in HUD
+            document.getElementById('hudScore').textContent = gameScore;
+        }
+
+        // Mouse handlers
         function onMouseMove(event) {
             mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
             mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-            // Slight camera movement based on mouse position
-            if (isLoaded) {
-                camera.position.x = mouse.x * 0.5;
-                camera.position.y = mouse.y * 0.5;
+            // Camera follow mouse slightly
+            if (isLoaded && !gameActive) {
+                camera.position.x = mouse.x * 2;
+                camera.position.y = mouse.y * 2;
                 camera.lookAt(0, 0, 0);
             }
         }
 
-        // Mouse click handler
         function onMouseClick(event) {
             raycaster.setFromCamera(mouse, camera);
             const intersects = raycaster.intersectObjects(scene.children);
@@ -497,19 +882,78 @@
             if (intersects.length > 0) {
                 const clickedObject = intersects[0].object;
                 
-                if (clickedObject.userData && clickedObject.userData.type === 'project') {
+                // Game target click
+                if (gameActive && clickedObject.userData && clickedObject.userData.type === 'gameTarget') {
+                    gameScore += clickedObject.userData.points;
+                    document.getElementById('gameScore').textContent = gameScore;
+                    
+                    // Remove target with explosion effect
+                    const position = clickedObject.position.clone();
+                    scene.remove(clickedObject);
+                    gameTargets = gameTargets.filter(t => t !== clickedObject);
+                    
+                    // Create explosion particles
+                    createExplosion(position);
+                    
+                    // Create new targets if all destroyed
+                    if (gameTargets.length === 0) {
+                        setTimeout(createGameTargets, 1000);
+                    }
+                }
+                // Project click
+                else if (clickedObject.userData && clickedObject.userData.type === 'project') {
                     showProjectInfo(clickedObject.userData);
                 }
             }
         }
 
-        // Mouse wheel handler
-        function onMouseWheel(event) {
-            camera.position.z += event.deltaY * 0.01;
-            camera.position.z = Math.max(2, Math.min(10, camera.position.z));
+        function createExplosion(position) {
+            const particleCount = 30;
+            const particles = [];
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particleGeometry = new THREE.SphereGeometry(0.1, 8, 8);
+                const particleMaterial = new THREE.MeshBasicMaterial({
+                    color: Math.random() > 0.5 ? 0xff0080 : 0x00ffff,
+                    transparent: true
+                });
+                const particle = new THREE.Mesh(particleGeometry, particleMaterial);
+                particle.position.copy(position);
+                particle.velocity = new THREE.Vector3(
+                    (Math.random() - 0.5) * 0.5,
+                    (Math.random() - 0.5) * 0.5,
+                    (Math.random() - 0.5) * 0.5
+                );
+                scene.add(particle);
+                particles.push(particle);
+            }
+            
+            // Animate explosion
+            let frame = 0;
+            function animateExplosion() {
+                frame++;
+                particles.forEach(particle => {
+                    particle.position.add(particle.velocity);
+                    particle.material.opacity -= 0.02;
+                    particle.scale.multiplyScalar(0.98);
+                });
+                
+                if (frame < 50) {
+                    requestAnimationFrame(animateExplosion);
+                } else {
+                    particles.forEach(particle => scene.remove(particle));
+                }
+            }
+            animateExplosion();
         }
 
-        // Window resize handler
+        function onMouseWheel(event) {
+            if (!gameActive) {
+                camera.position.z += event.deltaY * 0.01;
+                camera.position.z = Math.max(5, Math.min(20, camera.position.z));
+            }
+        }
+
         function onWindowResize() {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
@@ -519,87 +963,134 @@
         // Animation loop
         function animate() {
             requestAnimationFrame(animate);
-
-            // Rotate objects
+            
+            const delta = clock.getDelta();
+            const elapsed = clock.getElapsedTime();
+            
+            // Update FPS counter
+            const fps = Math.round(1 / delta);
+            document.getElementById('fps').textContent = fps;
+            
+            // Animate objects
             objects.forEach(obj => {
                 if (obj.type === 'centerpiece') {
                     obj.mesh.rotation.x += 0.005;
                     obj.mesh.rotation.y += 0.005;
+                    obj.mesh.scale.setScalar(1 + Math.sin(elapsed * 2) * 0.1);
                 } else if (obj.type === 'project') {
                     obj.mesh.rotation.y += 0.01;
-                } else if (obj.type === 'decoration') {
+                    obj.mesh.position.y = obj.mesh.position.y + Math.sin(elapsed + obj.mesh.position.x) * 0.01;
+                } else if (obj.type === 'projectRing') {
+                    obj.mesh.rotation.z += 0.02;
                     obj.mesh.rotation.x += 0.01;
-                    obj.mesh.rotation.z += 0.01;
                 } else if (obj.type === 'particles') {
                     obj.mesh.rotation.y += 0.0005;
+                } else if (obj.type === 'screen') {
+                    obj.mesh.rotation.y = Math.sin(elapsed * 0.5) * 0.2;
                 }
             });
-
-            // Check for hover effects
+            
+            // Animate 3D text
+            if (nameText) {
+                nameText.rotation.y = Math.sin(elapsed) * 0.1;
+                nameText.position.y = 5 + Math.sin(elapsed * 2) * 0.2;
+            }
+            
+            // Animate game targets
+            if (gameActive) {
+                gameTargets.forEach((target, index) => {
+                    target.position.x += Math.sin(elapsed * 2 + index) * 0.02;
+                    target.position.y += Math.cos(elapsed * 2 + index) * 0.02;
+                    target.rotation.x += 0.02;
+                    target.rotation.y += 0.02;
+                });
+            }
+            
+            // Hover effects
             raycaster.setFromCamera(mouse, camera);
             const intersects = raycaster.intersectObjects(scene.children);
-
+            
             objects.forEach(obj => {
-                if (obj.type === 'project') {
+                if (obj.type === 'project' || (gameActive && gameTargets.includes(obj.mesh))) {
                     if (intersects.length > 0 && intersects[0].object === obj.mesh) {
-                        obj.mesh.scale.set(1.2, 1.2, 1.2);
+                        obj.mesh.scale.setScalar(1.3);
                         cursor.style.transform = 'scale(2)';
+                        cursor.style.borderColor = '#ff0080';
                     } else {
-                        obj.mesh.scale.set(1, 1, 1);
+                        obj.mesh.scale.setScalar(1);
                         cursor.style.transform = 'scale(1)';
+                        cursor.style.borderColor = '#00ffff';
                     }
                 }
             });
-
+            
             renderer.render(scene, camera);
         }
 
         // UI Functions
         function enterPortfolio() {
             document.querySelector('.welcome').classList.add('hidden');
-            document.getElementById('instructions').classList.remove('hidden');
             
-            // Animate camera
-            const startPos = { z: 5 };
-            const endPos = { z: 8 };
+            // Animate camera entrance
+            const startPos = { z: 10 };
+            const endPos = { z: 15 };
             
-            const tween = function(from, to, duration) {
-                const start = performance.now();
+            const duration = 2000;
+            const start = performance.now();
+            
+            function updateCamera() {
+                const elapsed = performance.now() - start;
+                const progress = Math.min(elapsed / duration, 1);
                 
-                function update() {
-                    const elapsed = performance.now() - start;
-                    const progress = Math.min(elapsed / duration, 1);
-                    
-                    camera.position.z = from.z + (to.z - from.z) * progress;
-                    
-                    if (progress < 1) {
-                        requestAnimationFrame(update);
-                    }
+                // Easing function
+                const easeProgress = 1 - Math.pow(1 - progress, 3);
+                
+                camera.position.z = startPos.z + (endPos.z - startPos.z) * easeProgress;
+                camera.rotation.z = Math.sin(easeProgress * Math.PI) * 0.1;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(updateCamera);
                 }
-                
-                update();
-            };
+            }
             
-            tween(startPos, endPos, 2000);
+            updateCamera();
         }
 
         function navigateTo(section) {
             currentSection = section;
             
-            // Animate camera to different positions based on section
+            // Different camera positions for each section
             const positions = {
-                home: { x: 0, y: 0, z: 8 },
-                about: { x: 5, y: 0, z: 5 },
-                projects: { x: -5, y: 0, z: 5 },
-                contact: { x: 0, y: 5, z: 5 }
+                home: { x: 0, y: 0, z: 15, lookAt: new THREE.Vector3(0, 0, 0) },
+                about: { x: 10, y: 5, z: 10, lookAt: new THREE.Vector3(0, 5, -5) },
+                projects: { x: -10, y: 0, z: 10, lookAt: new THREE.Vector3(0, 0, 0) },
+                contact: { x: 0, y: 10, z: 10, lookAt: new THREE.Vector3(0, 0, 0) }
             };
             
             const targetPos = positions[section];
-            // Simple animation to target position
-            camera.position.x = targetPos.x;
-            camera.position.y = targetPos.y;
-            camera.position.z = targetPos.z;
-            camera.lookAt(0, 0, 0);
+            
+            // Smooth camera transition
+            const duration = 1500;
+            const start = performance.now();
+            const startCamPos = camera.position.clone();
+            
+            function updatePosition() {
+                const elapsed = performance.now() - start;
+                const progress = Math.min(elapsed / duration, 1);
+                const easeProgress = 1 - Math.pow(1 - progress, 3);
+                
+                camera.position.x = startCamPos.x + (targetPos.x - startCamPos.x) * easeProgress;
+                camera.position.y = startCamPos.y + (targetPos.y - startCamPos.y) * easeProgress;
+                camera.position.z = startCamPos.z + (targetPos.z - startCamPos.z) * easeProgress;
+                
+                camera.lookAt(targetPos.lookAt);
+                
+                if (progress < 1) {
+                    requestAnimationFrame(updatePosition);
+                }
+            }
+            
+            updatePosition();
         }
 
         function showProjectInfo(projectData) {
@@ -612,8 +1103,53 @@
             document.getElementById('projectInfo').classList.remove('active');
         }
 
+        // BLENDER MODEL LOADER SECTION
+        // This is where you add custom 3D models!
+        function loadCustomModel() {
+            // Uncomment this code when you have a 3D model file
+            /*
+            const loader = new THREE.GLTFLoader();
+            
+            loader.load(
+                'models/your-model.glb', // Change this to your model path
+                function (gltf) {
+                    const model = gltf.scene;
+                    
+                    // Position and scale your model
+                    model.position.set(0, 0, 0);
+                    model.scale.set(1, 1, 1);
+                    
+                    // Add shadows
+                    model.traverse((child) => {
+                        if (child.isMesh) {
+                            child.castShadow = true;
+                            child.receiveShadow = true;
+                            
+                            // Add emissive cyberpunk glow
+                            child.material.emissive = new THREE.Color(0x00ffff);
+                            child.material.emissiveIntensity = 0.1;
+                        }
+                    });
+                    
+                    scene.add(model);
+                    objects.push({ mesh: model, type: 'custom' });
+                },
+                function (xhr) {
+                    console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+                },
+                function (error) {
+                    console.error('Error loading model:', error);
+                }
+            );
+            */
+        }
+
         // Initialize when page loads
-        window.addEventListener('load', init);
+        window.addEventListener('load', () => {
+            init();
+            // Uncomment to load custom models
+            // loadCustomModel();
+        });
     </script>
 </body>
 </html>
