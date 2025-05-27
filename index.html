@@ -488,8 +488,8 @@
 
         <!-- Welcome Screen -->
         <div class="welcome">
-            <h1>Your Name</h1>
-            <p>Cyberpunk Portfolio</p>
+            <h1>Sri Siva Sai Kameswara Rao Kasturi</h1>
+            <p>Portfolio</p>
             <button class="enter-button" onclick="enterPortfolio()">Access System</button>
         </div>
 
@@ -645,7 +645,20 @@
             nameText = new THREE.Mesh(textGeometry, textMaterial);
             nameText.position.set(0, 5, -5);
             scene.add(nameText);
-            
+            nameText.visible = false; // OPTION 2: Add this line (if scene.add(nameText) is still active)
+if (nameText) { // Ensure nameText is defined before trying to add glow
+    scene.add(nameText); // Add this line if you commented out the one above but still want it in the scene (e.g. for Option 2)
+
+    // Add glow effect (make sure glow is added to nameText if nameText is visible)
+    const glowGeometry = new THREE.BoxGeometry(8.5, 1.5, 0.6);
+    const glowMaterial = new THREE.MeshBasicMaterial({
+        color: 0xff0080,
+        transparent: true,
+        opacity: 0.3
+    });
+    const glow = new THREE.Mesh(glowGeometry, glowMaterial);
+    nameText.add(glow); // This glow will also become invisible if nameText is invisible
+}
             // Add glow effect
             const glowGeometry = new THREE.BoxGeometry(8.5, 1.5, 0.6);
             const glowMaterial = new THREE.MeshBasicMaterial({
